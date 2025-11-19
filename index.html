@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Password Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <div class="img">
+      <h1>Random Password Generator</h1>
+
+      <div id="error" style="color: rgb(224, 181, 181); font-size: 1.2rem;"></div>
+
+      <div class="empty" id="output">Loading...</div>
+
+      <input type="number" class="Password" id="input" placeholder="Enter Password Length Here...">
+
+      <div class="check">
+        <label for=""
+          style="margin-left: 20px; color:rgba(255, 255, 255, 0.655); font-weight: bold; text-shadow: 5px 5px 2px  rgb(7, 6, 18);">
+          Include At Least One Type ⬇
+        </label><br>
+
+        <input type="checkbox" style="margin-top: 36px;" id="Lowercase">
+        <label for="Lowercase">Lowercase Alphabets</label><br>
+
+        <input type="checkbox" id="Uppercase">
+        <label for="Uppercase">Uppercase Alphabets</label><br>
+
+        <input type="checkbox" id="Symbols">
+        <label for="Symbols">Symbols</label><br>
+
+        <input type="checkbox" id="Number">
+        <label for="Number">Numbers</label>
+      </div>
+
+      <button id="btn">Generate Password</button>
+    </div>
+  </div>
+
+<script>const error = document.getElementById("error");
+  const input = document.getElementById("input");
+  const output = document.getElementById("output");
+  const lowerCheckbox = document.getElementById("Lowercase");
+  const upperCheckbox = document.getElementById("Uppercase");
+  const symbolsCheckbox = document.getElementById("Symbols");
+  const numberCheckbox = document.getElementById("Number");
+  const button = document.getElementById("btn");
+  
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const symbols = "!@#$%^&*()_+-=?";
+  const numbers = "0123456789";
+  
+  button.addEventListener("click", () => { 
+  
+    let total = "";
+    let generatedPassword = "";
+    total += lowerCheckbox.checked ? lower : "";
+    total += upperCheckbox.checked ? upper : "";
+    total += symbolsCheckbox.checked ? symbols : "";
+    total += numberCheckbox.checked ? numbers : "";
+  
+    if (input.value < 5 || input.value > 30 || input.value === "") {
+      error.innerHTML = '<i>Enter a password length b/w 5-30.<i>';
+      output.innerText = "Loading..."; 
+
+    } else if (total === "") {
+      error.innerHTML = '<i>*Include at least one type to generate a random password.</i>';
+      output.innerHTML = "Loading...";
+    } else {
+      error.innerText = "";
+  
+      for (let i = 0; i < input.value; i++) {
+        let randomIndex = Math.floor(Math.random() * total.length);
+        generatedPassword += total.charAt(randomIndex);
+      }
+  
+      output.innerText = generatedPassword;
+        error.innerText = "";
+    }
+  });
+  </script>
+</body>
+
+</html>
+
+
